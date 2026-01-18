@@ -1,0 +1,20 @@
+{
+  "name": "bob_farm",
+  "version": "1.0.0",
+  "description": "Project to allow Bob to seel corn through a web application",
+  "main": "index.ts",
+  "scripts": {
+    "start": "npm run --prefix api dev & npm run --prefix ui dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordinola/bob_farm.git"
+  },
+  "author": "James Ordinola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordinola/bob_farm/issues"
+  },
+  "homepage": "https://github.com/jordinola/bob_farm#readme"
+}
