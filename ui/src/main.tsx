@@ -14,8 +14,9 @@ createRoot(document.getElementById("root")!).render(
         <Route index element={<Welcome />} />
         <Route path="/" element={<App />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
