@@ -1,32 +1,22 @@
 import { format } from "date-fns";
-import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
 import type { TransactionItem } from "../../types/table";
 
 interface TableProps {
   data: TransactionItem[];
-  itemsPerPage: number;
-  isPending: boolean;
+  totalPages: number;
+  currentPage: number;
+  goToPage: (pageNumber: number) => void;
 }
 
-const Table = ({ data, itemsPerPage }: TableProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Logic to calculate items for the current page
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  const goToPage = (pageNumber: number) => setCurrentPage(pageNumber);
-
+const Table = ({ data, totalPages, currentPage, goToPage }: TableProps) => {
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto mt-10 shadow-lg rounded-lg border border-gray-200">
       <table className="max-w-4xl bg-white">
         <thead className="bg-gray-100 border-b border-gray-200">
           <tr>
-            <th className="hidden px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider sm:visible">
+            <th className="hidden px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider sm:flex visible">
               Transaction ID
             </th>
             <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -38,9 +28,9 @@ const Table = ({ data, itemsPerPage }: TableProps) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          {currentItems.map((item) => (
+          {data.map((item) => (
             <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-              <td className="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-700 sm:visible">
+              <td className="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-700 sm:flex visible">
                 {item.id}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
@@ -75,15 +65,7 @@ const Table = ({ data, itemsPerPage }: TableProps) => {
             Next
           </button>
         </div>
-        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-          <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{indexOfFirstItem + 1}</span>{" "}
-            to{" "}
-            <span className="font-medium">
-              {Math.min(indexOfLastItem, data.length)}
-            </span>{" "}
-            of <span className="font-medium">{data.length}</span> results
-          </p>
+        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-end">
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
             {[...Array(totalPages)].map((_, i) => (
               <button

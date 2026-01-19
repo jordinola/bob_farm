@@ -2,6 +2,8 @@ import cors from "cors";
 import express from "express";
 import {
   addTransaction,
+  countAllTransactions,
+  countTodayTransactions,
   getAllTransactions,
   isInWithinRate,
 } from "./inmemory/transactions.js";
@@ -16,9 +18,39 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Declare a simple route
 app.get("/api/corn", (req, res) => {
-  res.send(getAllTransactions());
+  const pageNumber = parseInt(req.query.pageNumber);
+  const pageSize = parseInt(req.query.pageSize);
+  const data = getAllTransactions(pageNumber, pageSize);
+  const totalPages = Math.ceil(countAllTransactions() / pageSize);
+
+  if (data.length > 0) {
+    const response = {
+      pageNumber: pageNumber ? parseInt(pageNumber) : 1,
+      pageSize: pageSize ? parseInt(pageSize) : 10,
+      totalPages: totalPages,
+      data: data,
+      counters: {
+        total: countAllTransactions(),
+        today: countTodayTransactions(),
+      },
+    };
+
+    return res.send(response);
+  }
+
+  const response = {
+    pageNumber: 1,
+    pageSize: 5,
+    totalPages: Math.ceil(countAllTransactions() / pageSize),
+    data: getAllTransactions(1, 5),
+    counters: {
+      total: countAllTransactions(),
+      today: countTodayTransactions(),
+    },
+  };
+
+  return res.send(response);
 });
 
 app.post("/api/corn", (req, res) => {

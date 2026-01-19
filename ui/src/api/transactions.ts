@@ -1,11 +1,14 @@
-import { toast } from "react-toastify";
+import type { FetchTransactionsResponse, Pagination } from "../types/table";
 
-export const fetchTranstactions = async () => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/corn`);
+export const fetchTranstactions = async (
+  pagination: Pagination,
+): Promise<FetchTransactionsResponse> => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/corn?pageNumber=${pagination.pageNumber}&pageSize=${pagination.pageSize}`,
+  );
 
   if (!response.ok) {
-    toast.error("Failed to fetch transactions");
-    return [];
+    throw new Error("Failed to fetch transactions");
   }
 
   return response.json();
@@ -17,9 +20,6 @@ export const addTransaction = async () => {
   });
 
   if (!response.ok) {
-    toast.error("Failed to buy corn. Wait a moment and try again.");
-    return;
+    throw new Error("Failed to add transaction");
   }
-
-  toast.success("Successfully bought corn!");
 };
