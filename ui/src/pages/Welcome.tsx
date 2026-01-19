@@ -4,13 +4,13 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5 bg-amber-300 w-screen h-svh sm:min-h-screen">
+    <div className="flex flex-col items-center justify-center gap-5 bg-amber-300 h-svh sm:min-h-screen">
       <img src="/logo.png" alt="Logo" className="m-5 w-32 h-32" />
 
-      <h1 className="text-4xl font-bold text-green-900">
+      <h1 className="text-4xl text-center font-bold text-green-900">
         Welcome to Bob's Farm!
       </h1>
-      <p className="text-lg text-green-800">
+      <p className="text-lg text-center text-green-800">
         Your one-stop solution for managing your farm produce.
       </p>
       <button
