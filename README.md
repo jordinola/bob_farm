@@ -45,4 +45,24 @@ This application is based on Vite React template and uses the following main lib
 - React-Toastify
 - React-Tooltip
 
-![logo](image.png)
+### Desktop Features
+
+- Desktop
+  - Welcome page
+    ![Welcome Page](assets/desktop/Welcome.png)
+  - Process
+    ![Process Success/Failure](assets/desktop/Process.png)
+  - Pagination
+    ![Pagination](assets/desktop/Pagination.png)
+  - Not Found page
+    ![Not Found Page](assets/desktop/NotFound.png)
+
+- Mobile
+  - Welcome page
+    ![Welcome Page](assets/mobile/Welcome.png)
+  - Sucess
+    ![Success](assets/mobile/Success.png)
+  - Failure
+    ![Failure](assets/mobile/Failure.png)
+  - Not Found page
+    ![Not Found Page](assets/mobile/NotFound.png)
